@@ -12,7 +12,7 @@ const response = await fetch(
 const data = await response.json()
 console.log("[App] Steam player summaries: ", data.response)
 const player = data.response.players[0]
-const currentState = player.personastate !== 0 || !player.gameextrainfo ? "0" : "1"
+const currentState = player.personastate !== 0 && player.gameextrainfo ? "1" : "0"
 const stateFile = "./status.txt"
 if (!fs.existsSync(stateFile)) {
   fs.writeFileSync(stateFile, currentState)

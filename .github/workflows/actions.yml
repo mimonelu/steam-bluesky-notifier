@@ -18,11 +18,22 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Restore status.txt from cache
+        uses: actions/cache@v3
+        with:
+          path: status.txt
+          key: steam-status
       - name: Run checker
         working-directory: ${{ github.workspace }}
         run: |
           npm install node-fetch
           node check.js
+      - name: Save status.txt to cache
+        uses: actions/cache@v3
+        with:
+          path: status.txt
+          key: steam-status
