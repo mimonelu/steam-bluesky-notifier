@@ -27,7 +27,7 @@ async function createSession (identifier, password) {
     })
   })
   if (!response.ok) {
-    throw new Error(`Failed to create session: ${response.statusText}`)
+    throw new Error(`[App] Failed to create session: ${response.statusText}`)
   }
   const data = await response.json()
   return data
@@ -52,7 +52,7 @@ async function createPost (accessJwt, did, text) {
     })
   })
   if (!response.ok) {
-    throw new Error(`Failed to create post: ${response.statusText}`)
+    throw new Error(`[App] Failed to create post: ${response.statusText}`)
   }
   const data = await response.json()
   return data

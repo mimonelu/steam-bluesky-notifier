@@ -10,19 +10,20 @@ const response = await fetch(
   `steamids=${STEAM_ID}`
 )
 const data = await response.json()
+console.log("[App] Steam player summaries: ", data.response)
 const player = data.response.players[0]
-const currentState = player.personastate === 0 || !player.gameextrainfo ? "0" : "1"
+const currentState = player.personastate !== 0 || !player.gameextrainfo ? "0" : "1"
 const stateFile = "./status.txt"
 if (!fs.existsSync(stateFile)) {
   fs.writeFileSync(stateFile, currentState)
-  console.log("Initial run: state saved, no trigger.")
+  console.log("[App] Initial run: state saved, no trigger.")
 } else {
   const prevState = fs.readFileSync(stateFile, "utf-8")
   if (prevState !== currentState) {
     await onStatusChange(currentState, player)
-    console.log(`Steam status changed: ${currentState}`)
+    console.log(`[App] Steam status changed: ${currentState}`)
   } else {
-    // console.log("No status change.")
+    console.log("[App] No Steam status change.")
   }
   fs.writeFileSync(stateFile, currentState)
 }
