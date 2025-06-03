@@ -13,7 +13,7 @@ export async function onStatusChange (status, player) {
 
 async function sendPost (player) {
   const data = await createSession(ATP_IDENTIFIER, ATP_PASSWORD)
-  const text = `${player.realname || data.handle} が ${player?.gameextrainfo} を始めました。\n\n※これは steam-bluesky-notifier による自動送信です。\nhttps://github.com/mimonelu/steam-bluesky-notifier`
+  const text = `${player.realname || data.handle} がSteamで ${player?.gameextrainfo} を始めました。\n\n※これは steam-bluesky-notifier による自動送信です。\nhttps://github.com/mimonelu/steam-bluesky-notifier`
   await createPost(data.accessJwt, data.did, text)
 }
 
